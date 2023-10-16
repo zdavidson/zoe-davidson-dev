@@ -1,20 +1,42 @@
-import * as React from 'react';
-import Document, { Html, Head, Main, NextScript } from 'next/document';
-import createEmotionServer from '@emotion/server/create-instance';
+import * as React from "react";
+import Document, { Html, Head, Main, NextScript } from "next/document";
+import createEmotionServer from "@emotion/server/create-instance";
 
-import createEmotionCache from '../utility/createEmotionCache';
+import createEmotionCache from "../utility/createEmotionCache";
+import { COLORS } from "../styles/theme/lightThemeOptions";
 
 export default class MyDocument extends Document {
   render() {
     return (
-      <Html lang="en">
+      <Html
+        lang="en"
+        style={{
+          backgroundColor: COLORS.background,
+          height: "100vh",
+          zIndex: "-5",
+          overflowX: "hidden",
+        }}
+      >
         <Head>
-          <link
+          {/* <link
             rel="stylesheet"
             href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
+          /> */}
+          <link rel="preconnect" href="https://fonts.googleapis.com" />
+          <link rel="preconnect" href="https://fonts.gstatic.com" />
+          <link
+            href="https://fonts.googleapis.com/css2?family=Mulish&family=Playfair+Display&family=Zilla+Slab:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500;1,600;1,700&display=swap"
+            rel="stylesheet"
           />
         </Head>
-        <body>
+        <body
+          style={{
+            backgroundColor: COLORS.background,
+            height: "100vh",
+            zIndex: -5,
+            position: "relative",
+          }}
+        >
           <Main />
           <NextScript />
         </body>
@@ -69,7 +91,7 @@ MyDocument.getInitialProps = async (ctx) => {
   const emotionStyles = extractCriticalToChunks(initialProps.html);
   const emotionStyleTags = emotionStyles.styles.map((style) => (
     <style
-      data-emotion={`${style.key} ${style.ids.join(' ')}`}
+      data-emotion={`${style.key} ${style.ids.join(" ")}`}
       key={style.key}
       // eslint-disable-next-line react/no-danger
       dangerouslySetInnerHTML={{ __html: style.css }}
